@@ -178,4 +178,25 @@ SELECT ?role ?activity
   FILTER (!bound(?publication))
 } 
 ```
+### Query für Journals ohne Beiträge
 
+```sql
+PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
+PREFIX hsmw:     <https://vivo.hs-mittweida.de/vivo/ontology/hsmw#>
+PREFIX kdsf:     <http://kerndatensatz-forschung.de/owl/Basis#>
+PREFIX vivo:     <http://vivoweb.org/ontology/core#>
+PREFIX obo:      <http://purl.obolibrary.org/obo/>
+PREFIX bibo:    <http://purl.org/ontology/bibo/>
+
+
+SELECT ?uri ?pubVenue {
+		?uri a bibo:Journal .
+		OPTIONAL {
+    		?uri vivo:publicationVenueFor ?pubVenue .
+  		}
+  		FILTER (!bound(?pubVenue))
+} 
+```
